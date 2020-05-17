@@ -1,53 +1,56 @@
-import React, {Component} from 'react';
+import React from 'react';
 import firebase from 'firebase'
+import Login from './pages/Login';
+import Dashboard from './pages/Dashboard';
 
-export default class App extends Component{
+const App = () =>{
+  
+  // const [ usuarios, setUsuarios ] = React.useState([]);
+  const [ currentUser, setCurrentuser ] = React.useState({});
+  const [ showLogin, setShowLogin ] = React.useState(false);
 
-  constructor(props){
-    super(props);
-    this.state = {
-      usuarios: [],
-    };
-
-    let firebaseConfig = {
-      apiKey: "AIzaSyC9RLFXvNNGIr1_nVY_ERED42dBsiy6Jm8",
-      authDomain: "proemp-9d169.firebaseapp.com",
-      databaseURL: "https://proemp-9d169.firebaseio.com",
-      projectId: "proemp-9d169",
-      storageBucket: "proemp-9d169.appspot.com",
-      messagingSenderId: "109471063554",
-      appId: "1:109471063554:web:c64cd7736c3ce8843f111b",
-      measurementId: "G-VBJFHWJ0NG"
-    };
-    // Initialize Firebase
-    if (!firebase.apps.length)
-      firebase.initializeApp(firebaseConfig);
+  const firebaseConfig = {
+    apiKey: "AIzaSyDSTzwJtgQ-kMZ2H6ur0J13v5VDuHYuJbE",
+    authDomain: "proemp-bdf14.firebaseapp.com",
+    databaseURL: "https://proemp-bdf14.firebaseio.com",
+    projectId: "proemp-bdf14",
+    storageBucket: "proemp-bdf14.appspot.com",
+    messagingSenderId: "695825377875",
+    appId: "1:695825377875:web:4f7500a638d4297f0974a6",
+    measurementId: "G-VVZ2STX70Y"
+  };
+  if (!firebase.apps.length)
+  firebase.initializeApp(firebaseConfig);
+  
+  firebase.analytics();
+  
+  React.useEffect(() => {
     
-    firebase.analytics();
-
-    //real time
-    /*firebase.database().ref('usuarios').on('value', (snapshot) => {
-      let state = this.state;
-      state.usuarios = snapshot.val();
-      this.setState(state);
-    });    */
-
     //uma vez
-    firebase.database().ref('usuarios').once('value').then((snapshot) => {
-      let state = this.state;
-      state.usuarios = snapshot.val();
-      this.setState(state);
-      console.log(this.state.usuarios);
+    // firebase.database().ref('usuarios').once('value').then((snapshot) => {
+    //   setUsuarios(snapshot.val());
+    //   console.log(usuarios);
+    // });
+
+    firebase.auth().onAuthStateChanged((user) => {
+      if (!user) {
+        setCurrentuser(user);
+      }
     });
-  }
+  }, [firebase.auth().currentUser])
 
-  render(){
-    //const { login } = this.s
-
-    return(
-      <div>
-        <h1>funfando</h1>
-      </div>
-    );
+  const onLogout = () => {
+    setCurrentuser({});
   }
+  
+  return(
+    <div>
+      {currentUser?
+      <Dashboard />:
+      <Login />
+      }
+    </div>
+  );
 };
+  
+export default App;
