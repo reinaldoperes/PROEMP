@@ -1,13 +1,9 @@
 import React from 'react';
 import firebase from 'firebase'
-import Login from './pages/Login';
-import Dashboard from './pages/Dashboard';
+import Teste from './pages/Teste';
+import UserProvider from './context/User';
 
 const App = () =>{
-  
-  // const [ usuarios, setUsuarios ] = React.useState([]);
-  const [ currentUser, setCurrentuser ] = React.useState({});
-  const [ showLogin, setShowLogin ] = React.useState(false);
 
   const firebaseConfig = {
     apiKey: "AIzaSyDSTzwJtgQ-kMZ2H6ur0J13v5VDuHYuJbE",
@@ -24,32 +20,10 @@ const App = () =>{
   
   firebase.analytics();
   
-  React.useEffect(() => {
-    
-    //uma vez
-    // firebase.database().ref('usuarios').once('value').then((snapshot) => {
-    //   setUsuarios(snapshot.val());
-    //   console.log(usuarios);
-    // });
-
-    firebase.auth().onAuthStateChanged((user) => {
-      if (!user) {
-        setCurrentuser(user);
-      }
-    });
-  }, [firebase.auth().currentUser])
-
-  const onLogout = () => {
-    setCurrentuser({});
-  }
-  
   return(
-    <div>
-      {currentUser?
-      <Dashboard />:
-      <Login />
-      }
-    </div>
+    <UserProvider>
+      <Teste />
+    </UserProvider>
   );
 };
   
