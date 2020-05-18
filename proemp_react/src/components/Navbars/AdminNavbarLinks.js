@@ -21,10 +21,11 @@ import Button from "components/CustomButtons/Button.js";
 
 import styles from "assets/jss/material-dashboard-react/components/headerLinksStyle.js";
 import { Router, Route, Switch, Redirect } from "react-router-dom";
-
+import { useUser } from "../../hooks/useUser";
 const useStyles = makeStyles(styles);
 
 export default function AdminNavbarLinks() {
+  const { removeUser } = useUser();
   const classes = useStyles();
   const [openNotification, setOpenNotification] = React.useState(null);
   const [openProfile, setOpenProfile] = React.useState(null);
@@ -40,28 +41,32 @@ export default function AdminNavbarLinks() {
     setOpenNotification(null);
   };
   const handleClickProfile = event => {
-    if (openProfile && openProfile.contains(event.target)) {      
+    if (openProfile && openProfile.contains(event.target)) {
       setOpenProfile(null);
     } else {
       setOpenProfile(event.currentTarget);
     }
   };
   const handleCloseProfile = () => {
-    setOpenProfile(null);    
+    setOpenProfile(null);
   };
 
-  const handleLogout = () =>{
+  const handleLogout = async () => {
+    await removeUser();
     setLogout(true);
-  } 
+  };
 
-  if(redirecionaLogout){
+  React.useEffect(() => {
+    if (!localStorage.getItem("user")) setLogout(true);
+  }, []);
+
+  if (redirecionaLogout) {
     return <Redirect from="/" to="/login" />;
   }
 
   return (
     <div>
-      <div className={classes.searchWrapper}>
-      </div>
+      <div className={classes.searchWrapper}></div>
       <div className={classes.manager}>
         <Button
           color={window.innerWidth > 959 ? "transparent" : "white"}

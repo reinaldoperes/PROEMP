@@ -106,7 +106,7 @@ export default function Admin({ ...rest }) {
       />
       <div className={classes.mainPanel} ref={mainPanel}>
         <Navbar
-          color="#107082"          
+          color="info"
           routes={routes}
           handleDrawerToggle={handleDrawerToggle}
           {...rest}
@@ -120,7 +120,6 @@ export default function Admin({ ...rest }) {
           <div className={classes.map}>{switchRoutes}</div>
         )}
         {getRoute() ? <Footer /> : null}
-       
       </div>
     </div>
   );
