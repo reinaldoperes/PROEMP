@@ -3,6 +3,6 @@ Projeto Protocolo Empresarial
 
 
 # Tecnologias
-- React JS
+- React JS + Material UI
 - Node 
 - Firebase
