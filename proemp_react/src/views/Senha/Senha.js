@@ -33,7 +33,7 @@ const Senha = () => {
   }
 
   return (
-    <div>
+    <div style={{marginLeft:"20px", marginRight:"50px"}}>
       <h6>
         Um email será enviado nos próximos 5 minutos com o link para atualizar
         sua senha.
@@ -51,13 +51,12 @@ const Senha = () => {
           autoFocus
           type="email"
         />
-
         <ButtonCustom
           type="submit"
-          fullWidth
           variant="contained"
           color="warning"
           className={classes.submit}
+          style={{marginLeft:"20px"}}
         >
           Enviar
         </ButtonCustom>

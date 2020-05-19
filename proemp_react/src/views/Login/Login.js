@@ -141,11 +141,6 @@ const Login = () => {
                   Esqueci minha senha
                 </Link>
               </Grid>
-              <Grid item>
-                <Link color="error" href="#" variant="body2">
-                  Esqueci meu email
-                </Link>
-              </Grid>
             </Grid>
             <ButtonCustom
               type="submit"

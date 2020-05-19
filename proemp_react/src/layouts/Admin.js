@@ -20,8 +20,10 @@ import logo from "assets/img/proemp_logo.png";
 
 import IncluirTipoDoc from "../views/TipoDocumento/IncluirTipoDocumento.js";
 import ListarTipoDocumento from "../views/TipoDocumento/ListarTipoDocumento.js";
+import AtualizarTipoDocumento from "../views/TipoDocumento/AtualizarTipoDocumento.js"
 import ListarReferencia from "../views/Referencia/ListarReferencia.js"
 import IncluirReferencia from "../views/Referencia/IncluirReferencia.js"
+import AtualizarReferencia from "../views/Referencia/AtualizarReferencia.js"
 
 let ps;
 
@@ -43,6 +45,8 @@ const switchRoutes = (
     <Route path="/admin/incluirtipodocumento" component={IncluirTipoDoc} />
     <Route path="/admin/referencia" component={ListarReferencia} />
     <Route path="/admin/incluirreferencia" component={IncluirReferencia} />
+    <Route path="/admin/atualizartipodocumento" component={AtualizarTipoDocumento} />
+    <Route path="/admin/atualizarreferencia" component={AtualizarReferencia} />
     <Redirect from="/admin" to="/admin/entrada" />
   </Switch>
 );

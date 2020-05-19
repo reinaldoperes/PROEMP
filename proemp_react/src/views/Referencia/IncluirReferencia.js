@@ -77,7 +77,7 @@ export default function IncluirReferencia() {
             <form onSubmit={handleSubmit}>
             <GridContainer>
                 <GridItem xs={12} sm={12} md={8}>
-                <TextField required id="nome" name="nome" fullWidth label="Nome" />                
+                <TextField autoFocus required id="nome" name="nome" fullWidth label="Nome" />                
                 </GridItem>
               </GridContainer>
               <br />
