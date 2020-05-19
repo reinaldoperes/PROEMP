@@ -107,9 +107,9 @@ const Login = () => {
               required
               fullWidth
               id="user"
-              label="Usuário"
+              label="Email"
               name="usuario"
-              autoComplete="user"
+              autoComplete="email"
               autoFocus
             />
             <TextField

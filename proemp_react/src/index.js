@@ -25,19 +25,13 @@ import firebase from "firebase";
 import Admin from "./layouts/Admin.js";
 import Login from "./views/Login/Login.js";
 import User from "./views/UserProfile/UserProfile.js";
+import IncluirTipoDoc from "./views/TipoDocumento/IncluirTipoDocumento.js";
+import ListarTipoDocumento from "./views/TipoDocumento/ListarTipoDocumento.js";
 
 import "./assets/css/material-dashboard-react.css?v=1.8.0";
 import UserProvider from "./context/User";
 
 const hist = createBrowserHistory();
-
-// if (1 === 2) {
-//   component = Admin;
-//   path = "/admin";
-// } else {
-//   component = Login;
-//   path = "/login";
-// }
 
 const firebaseConfig = {
   apiKey: "AIzaSyDSTzwJtgQ-kMZ2H6ur0J13v5VDuHYuJbE",
@@ -58,8 +52,8 @@ ReactDOM.render(
     <Router history={hist}>
       <Switch>
         <Route path="/admin" component={Admin} />
-        <Route path="/login" component={Login} />
-        <Route path="/admin/user" component={User} />
+        <Route path="/login" component={Login} />        
+        <Route path="/admin/user" component={User} />        
         <Redirect from="/" to="/login" />
       </Switch>
     </Router>

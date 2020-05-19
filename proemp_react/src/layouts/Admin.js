@@ -18,6 +18,11 @@ import styles from "assets/jss/material-dashboard-react/layouts/adminStyle.js";
 import bgImage from "assets/img/proemp_fundo.png";
 import logo from "assets/img/proemp_logo.png";
 
+import IncluirTipoDoc from "../views/TipoDocumento/IncluirTipoDocumento.js";
+import ListarTipoDocumento from "../views/TipoDocumento/ListarTipoDocumento.js";
+import ListarReferencia from "../views/Referencia/ListarReferencia.js"
+import IncluirReferencia from "../views/Referencia/IncluirReferencia.js"
+
 let ps;
 
 const switchRoutes = (
@@ -34,7 +39,11 @@ const switchRoutes = (
       }
       return null;
     })}
-    <Redirect from="/admin" to="/admin/table" />
+    <Route path="/admin/tipodocumento" component={ListarTipoDocumento} />
+    <Route path="/admin/incluirtipodocumento" component={IncluirTipoDoc} />
+    <Route path="/admin/referencia" component={ListarReferencia} />
+    <Route path="/admin/incluirreferencia" component={IncluirReferencia} />
+    <Redirect from="/admin" to="/admin/entrada" />
   </Switch>
 );
 
@@ -106,7 +115,7 @@ export default function Admin({ ...rest }) {
       />
       <div className={classes.mainPanel} ref={mainPanel}>
         <Navbar
-          color="info"
+          color=""
           routes={routes}
           handleDrawerToggle={handleDrawerToggle}
           {...rest}
