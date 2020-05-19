@@ -24,9 +24,12 @@ import firebase from "firebase";
 // core components
 import Admin from "./layouts/Admin.js";
 import Login from "./views/Login/Login.js";
+import Senha from "./views/Senha/Senha.js";
 import User from "./views/UserProfile/UserProfile.js";
+
 import IncluirTipoDoc from "./views/TipoDocumento/IncluirTipoDocumento.js";
 import ListarTipoDocumento from "./views/TipoDocumento/ListarTipoDocumento.js";
+import ConfirmMessage from "./views/ConfirmMessage/ConfirmMessage.js";
 
 import "./assets/css/material-dashboard-react.css?v=1.8.0";
 import UserProvider from "./context/User";
@@ -52,8 +55,10 @@ ReactDOM.render(
     <Router history={hist}>
       <Switch>
         <Route path="/admin" component={Admin} />
-        <Route path="/login" component={Login} />        
-        <Route path="/admin/user" component={User} />        
+        <Route path="/login" component={Login} />
+        <Route path="/recuperarSenha" component={Senha} />
+        <Route path="/admin/user" component={User} />
+        <Route path="/message/:type" component={ConfirmMessage} />
         <Redirect from="/" to="/login" />
       </Switch>
     </Router>
