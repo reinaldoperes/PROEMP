@@ -63,6 +63,7 @@ const useStyles = makeStyles(theme => ({
 const Login = () => {
   const classes = useStyles();
   const [redireciona, setRedirect] = useState(false);
+  const [recuperarSenha, setRecuperarSenha] = useState(false);
 
   const { updateUser, setUser } = useUser();
 
@@ -92,6 +93,10 @@ const Login = () => {
     return <Redirect from="/" to="/admin/entrada" />;
   }
 
+  if (recuperarSenha) {
+    return <Redirect from="/" to="/recuperarSenha" />;
+  }
+
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -107,10 +112,11 @@ const Login = () => {
               required
               fullWidth
               id="user"
-              label="Usuário"
+              label="Email"
               name="usuario"
               autoComplete="user"
               autoFocus
+              type="email"
             />
             <TextField
               variant="outlined"
@@ -126,7 +132,12 @@ const Login = () => {
 
             <Grid container>
               <Grid item xs>
-                <Link color="error" href="#" variant="body2">
+                <Link
+                  onClick={() => setRecuperarSenha(true)}
+                  color="error"
+                  href="#"
+                  variant="body2"
+                >
                   Esqueci minha senha
                 </Link>
               </Grid>
