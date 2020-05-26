@@ -11,9 +11,9 @@ import CardHeader from "components/Card/CardHeader.js";
 import CardAvatar from "components/Card/CardAvatar.js";
 import CardBody from "components/Card/CardBody.js";
 import CardFooter from "components/Card/CardFooter.js";
-import TextField from '@material-ui/core/TextField';
+import TextField from "@material-ui/core/TextField";
 import { Redirect } from "react-router-dom";
-import firebase from 'firebase'
+import firebase from "firebase";
 
 const styles = {
   cardCategoryWhite: {
@@ -39,18 +39,18 @@ const useStyles = makeStyles(styles);
 export default function IncluirReferencia() {
   const classes = useStyles();
   const [voltar, setVoltar] = React.useState(false);
-  
-  const handleCancelar = () =>{
+
+  const handleCancelar = () => {
     setVoltar(true);
   };
 
   const handleSubmit = event => {
     event.preventDefault();
-    
-    let nome = document.getElementsByName('nome')[0].value
-    let descricao = document.getElementsByName('descricao')[0].value
 
-    let referencia = firebase.database().ref('referencia');
+    let nome = document.getElementsByName("nome")[0].value;
+    let descricao = document.getElementsByName("descricao")[0].value;
+
+    let referencia = firebase.database().ref("referencia");
     let chave = referencia.push().key;
 
     referencia.child(chave).set({
@@ -60,7 +60,7 @@ export default function IncluirReferencia() {
     setVoltar(true);
   };
 
-  if(voltar){
+  if (voltar) {
     return <Redirect to="/admin/referencia" />;
   }
 
@@ -74,33 +74,45 @@ export default function IncluirReferencia() {
               <p className={classes.cardCategoryWhite}> </p>
             </CardHeader>
             <CardBody>
-            <form onSubmit={handleSubmit}>
-            <GridContainer>
-                <GridItem xs={12} sm={12} md={8}>
-                <TextField autoFocus required id="nome" name="nome" fullWidth label="Nome" />                
-                </GridItem>
-              </GridContainer>
-              <br />
-              <GridContainer>
-                <GridItem xs={12} sm={12} md={8}>
-                  <textarea                    
-                    style={{ height: '100px' }}
-                    id="descricao"
-                    name="descricao"
-                    placeholder="Descrição"
-                    required
-                    maxLength="100"
-                    style={{width:"100%", height:"150%"}}
-                  />
-                </GridItem>
-              </GridContainer>
-              <br /><br />
-              <Button type="submit" color="warning">Incluir</Button>
-              <Button type="button" onClick={handleCancelar} color="danger">Cancelar</Button>
-            </form>                    
+              <form onSubmit={handleSubmit}>
+                <GridContainer>
+                  <GridItem xs={12} sm={12} md={8}>
+                    <TextField
+                      autoFocus
+                      required
+                      id="nome"
+                      name="nome"
+                      fullWidth
+                      label="Nome"
+                    />
+                  </GridItem>
+                </GridContainer>
+                <br />
+                <GridContainer>
+                  <GridItem xs={12} sm={12} md={8}>
+                    <textarea
+                      style={{ height: "100px" }}
+                      id="descricao"
+                      name="descricao"
+                      placeholder="Descrição"
+                      required
+                      maxLength="100"
+                      style={{ width: "100%", height: "150%" }}
+                    />
+                  </GridItem>
+                </GridContainer>
+                <br />
+                <br />
+                <Button type="submit" color="warning">
+                  Incluir
+                </Button>
+                <Button type="button" onClick={handleCancelar} color="danger">
+                  Cancelar
+                </Button>
+              </form>
             </CardBody>
           </Card>
-        </GridItem>      
+        </GridItem>
       </GridContainer>
     </div>
   );

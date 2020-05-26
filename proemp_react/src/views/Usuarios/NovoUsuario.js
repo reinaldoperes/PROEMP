@@ -1,19 +1,16 @@
 import React from "react";
 // @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
 // core components
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
-import CustomInput from "components/CustomInput/CustomInput.js";
 import Button from "components/CustomButtons/Button.js";
 import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
-import CardAvatar from "components/Card/CardAvatar.js";
 import CardBody from "components/Card/CardBody.js";
-import CardFooter from "components/Card/CardFooter.js";
 import TextField from "@material-ui/core/TextField";
 import { Redirect } from "react-router-dom";
 import firebase from "firebase";
+import { makeStyles } from "@material-ui/core/styles";
 
 const styles = {
   cardCategoryWhite: {
@@ -36,7 +33,7 @@ const styles = {
 
 const useStyles = makeStyles(styles);
 
-export default function AtualizarReferencia(props) {
+const NovoUsuario = () => {
   const classes = useStyles();
   const [voltar, setVoltar] = React.useState(false);
 
@@ -46,23 +43,32 @@ export default function AtualizarReferencia(props) {
 
   const handleSubmit = event => {
     event.preventDefault();
-    let nome = document.getElementsByName("nome")[0].value;
-    let descricao = document.getElementsByName("descricao")[0].value;
 
-    let referencia = firebase
-      .database()
-      .ref("referencia")
-      .child(props.location.state.key);
+    let firebaseRef = firebase.database().ref("usuarios");
 
-    referencia.set({
-      nome: nome,
-      descricao: descricao
-    });
-    setVoltar(true);
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(
+        document.getElementsByName("email")[0].value,
+        "proemp"
+      )
+      .then(() => {
+        firebaseRef.push({
+          nome: document.getElementsByName("nome")[0].value,
+          email: document.getElementsByName("email")[0].value,
+          cpf: document.getElementsByName("cpf")[0].value,
+          telefone: document.getElementsByName("telefone")[0].value,
+          referencia: document.getElementsByName("referencia")[0].value
+        });
+        setVoltar(true);
+      })
+      .catch(() => {
+        alert("Email inválido ou já cadastrado");
+      });
   };
 
   if (voltar) {
-    return <Redirect to="/admin/referencia" />;
+    return <Redirect to="/admin/listaUsuario" />;
   }
 
   return (
@@ -71,44 +77,72 @@ export default function AtualizarReferencia(props) {
         <GridItem xs={12} sm={12} md={8}>
           <Card>
             <CardHeader color="warning">
-              <h4 className={classes.cardTitleWhite}>
-                {"Editar: " + props.location.state.nome}
-              </h4>
+              <h4 className={classes.cardTitleWhite}>Incluir Novo Usuário</h4>
               <p className={classes.cardCategoryWhite}> </p>
             </CardHeader>
             <CardBody>
               <form onSubmit={handleSubmit}>
                 <GridContainer>
-                  <GridItem xs={12} sm={12} md={8}>
+                  <GridItem xs={6} sm={6} md={4}>
                     <TextField
                       autoFocus
                       required
                       id="nome"
-                      value={props.location.state.nome}
                       name="nome"
                       fullWidth
                       label="Nome"
                     />
                   </GridItem>
+                  <GridItem xs={6} sm={6} md={4}>
+                    <TextField
+                      autoFocus
+                      required
+                      id="email"
+                      name="email"
+                      fullWidth
+                      label="Email"
+                      type="email"
+                    />
+                  </GridItem>
                 </GridContainer>
                 <br />
                 <GridContainer>
-                  <GridItem xs={12} sm={12} md={8}>
-                    <textarea
-                      id="descricao"
-                      name="descricao"
-                      placeholder="Descrição"
+                  <GridItem xs={4} sm={4} md={3}>
+                    <TextField
+                      autoFocus
                       required
-                      maxLength="100"
-                      style={{ width: "100%", height: "100px" }}
-                      value={props.location.state.descricao}
+                      id="cpf"
+                      name="cpf"
+                      fullWidth
+                      label="CPF"
+                    />
+                  </GridItem>
+                  <GridItem xs={4} sm={4} md={3}>
+                    <TextField
+                      autoFocus
+                      required
+                      id="telefone"
+                      name="telefone"
+                      fullWidth
+                      label="Telefone"
+                    />
+                  </GridItem>
+                  <GridItem xs={4} sm={4} md={2}>
+                    <TextField
+                      autoFocus
+                      required
+                      id="referencia"
+                      name="referencia"
+                      fullWidth
+                      label="Referência"
                     />
                   </GridItem>
                 </GridContainer>
                 <br />
                 <br />
+                <br />
                 <Button type="submit" color="warning">
-                  Atualizar
+                  Incluir
                 </Button>
                 <Button type="button" onClick={handleCancelar} color="danger">
                   Cancelar
@@ -120,4 +154,6 @@ export default function AtualizarReferencia(props) {
       </GridContainer>
     </div>
   );
-}
+};
+
+export default NovoUsuario;
