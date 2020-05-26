@@ -20,13 +20,12 @@ import logo from "assets/img/proemp_logo.png";
 
 import IncluirTipoDoc from "../views/TipoDocumento/IncluirTipoDocumento.js";
 import ListarTipoDocumento from "../views/TipoDocumento/ListarTipoDocumento.js";
-import AtualizarTipoDocumento from "../views/TipoDocumento/AtualizarTipoDocumento.js"
-import ListarReferencia from "../views/Referencia/ListarReferencia.js"
-import IncluirReferencia from "../views/Referencia/IncluirReferencia.js"
-import AtualizarReferencia from "../views/Referencia/AtualizarReferencia.js"
-import NovoDocumento from "../views/TableList/NovoDocumento.js"
-import NovoUsuario from "../views/Usuarios/NovoUsuario.js";
+import AtualizarTipoDocumento from "../views/TipoDocumento/AtualizarTipoDocumento.js";
+import ListarReferencia from "../views/Referencia/ListarReferencia.js";
+import IncluirReferencia from "../views/Referencia/IncluirReferencia.js";
 import AtualizarReferencia from "../views/Referencia/AtualizarReferencia.js";
+import NovoDocumento from "../views/TableList/NovoDocumento.js";
+import NovoUsuario from "../views/Usuarios/NovoUsuario.js";
 import AtualizarUsuario from "../views/Usuarios/AtualizarUsuario.js";
 
 let ps;
@@ -50,10 +49,7 @@ const switchRoutes = (
     <Route path="/admin/referencia" component={ListarReferencia} />
     <Route path="/admin/incluirreferencia" component={IncluirReferencia} />
     <Route path="/admin/novoUsuario" component={NovoUsuario} />
-    <Route
-      path="/admin/atualizartipodocumento"
-      component={AtualizarTipoDocumento}
-    />
+    <Route path="/admin/atualizartipodocumento" component={AtualizarTipoDocumento}/>
     <Route path="/admin/atualizarreferencia" component={AtualizarReferencia} />
     <Route path="/admin/novodocumento" component={NovoDocumento} />
     <Route path="/admin/updateUser" component={AtualizarUsuario} />
