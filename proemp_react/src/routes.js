@@ -31,7 +31,7 @@ import Language from "@material-ui/icons/Language";
 // core components/views for Admin layout
 import DashboardPage from "views/Dashboard/Dashboard.js";
 import UserProfile from "views/UserProfile/UserProfile.js";
-import TableList from "views/TableList/TableList.js";
+import TableListCaixaEntrada from "views/TableList/TableListCaixaEntrada.js";
 import TableListEnviados from "views/TableList/TableListEnviados.js";
 import TableListDocumentos from "views/TableList/TableListDocumentos.js";
 import Typography from "views/Typography/Typography.js";
@@ -63,7 +63,7 @@ const dashboardRoutes = [
     path: "/entrada",
     name: "Caixa de entrada",
     icon: Mail,
-    component: TableList,
+    component: TableListCaixaEntrada,
     layout: "/admin"
   },
   {

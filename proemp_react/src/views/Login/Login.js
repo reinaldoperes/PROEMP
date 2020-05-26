@@ -14,19 +14,6 @@ import { Redirect } from "react-router-dom";
 import { useUser } from "../../hooks/useUser";
 import firebase from "firebase";
 
-const Copyright = () => {
-  return (
-    <Typography variant="body2" color="error" align="center">
-      {"Copyright © "}
-      <Link color="inherit" href="https://google.com/">
-        PROEMP
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-};
-
 const useStyles = makeStyles(theme => ({
   root: {
     height: "100vh"
@@ -57,8 +44,30 @@ const useStyles = makeStyles(theme => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2)
-  }
+  },
+  login:{
+    backgroundColor: "white"
+  },
+  textbox:{
+    backgroundColor: "white",
+  },
+  link_:{
+    color: "darkorange",
+  },
 }));
+
+const Copyright = () => {
+  return (
+    <Typography variant="body2" color="danger" align="center">
+      {"Copyright © "}
+      <Link  color="inherit" href="https://google.com/">
+        PROEMP
+      </Link>{" "}
+      {new Date().getFullYear()}
+      {"."}
+    </Typography>
+  );
+};
 
 const Login = () => {
   const classes = useStyles();
@@ -101,10 +110,9 @@ const Login = () => {
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
       <Grid item xs={false} sm={4} md={7} className={classes.image} />
-      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+      <Grid className={classes.login} item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
           <img src={logo} style={{ width: "50%" }} />
-
           <form className={classes.form} onSubmit={handleSubmit}>
             <TextField
               variant="outlined"
@@ -117,6 +125,7 @@ const Login = () => {
               autoComplete="email"
               autoFocus
               type="email"
+              className={classes.textbox}
             />
             <TextField
               variant="outlined"
@@ -128,6 +137,7 @@ const Login = () => {
               type="password"
               id="senha"
               autoComplete="current-password"
+              className={classes.textbox}
             />
 
             <Grid container>
@@ -137,6 +147,7 @@ const Login = () => {
                   color="error"
                   href="#"
                   variant="body2"
+                  className={classes.link_}
                 >
                   Esqueci minha senha
                 </Link>

@@ -75,7 +75,7 @@ export default function AtualizarReferencia(props) {
             <form onSubmit={handleSubmit}>
             <GridContainer>
                 <GridItem xs={12} sm={12} md={8}>
-                <TextField autoFocus required id="nome" value={props.location.state.nome} name="nome" fullWidth label="Nome" />                
+                <TextField autoFocus required id="nome" name="nome" fullWidth label="Nome" />                
                 </GridItem>
               </GridContainer>
               <br />
@@ -89,7 +89,6 @@ export default function AtualizarReferencia(props) {
                     required
                     maxLength="100"
                     style={{width:"100%", height:"150%"}}
-                    value={props.location.state.descricao}
                   />
                 </GridItem>
               </GridContainer>
