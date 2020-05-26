@@ -25,6 +25,9 @@ import ListarReferencia from "../views/Referencia/ListarReferencia.js"
 import IncluirReferencia from "../views/Referencia/IncluirReferencia.js"
 import AtualizarReferencia from "../views/Referencia/AtualizarReferencia.js"
 import NovoDocumento from "../views/TableList/NovoDocumento.js"
+import NovoUsuario from "../views/Usuarios/NovoUsuario.js";
+import AtualizarReferencia from "../views/Referencia/AtualizarReferencia.js";
+import AtualizarUsuario from "../views/Usuarios/AtualizarUsuario.js";
 
 let ps;
 
@@ -46,9 +49,14 @@ const switchRoutes = (
     <Route path="/admin/incluirtipodocumento" component={IncluirTipoDoc} />
     <Route path="/admin/referencia" component={ListarReferencia} />
     <Route path="/admin/incluirreferencia" component={IncluirReferencia} />
-    <Route path="/admin/atualizartipodocumento" component={AtualizarTipoDocumento} />
+    <Route path="/admin/novoUsuario" component={NovoUsuario} />
+    <Route
+      path="/admin/atualizartipodocumento"
+      component={AtualizarTipoDocumento}
+    />
     <Route path="/admin/atualizarreferencia" component={AtualizarReferencia} />
     <Route path="/admin/novodocumento" component={NovoDocumento} />
+    <Route path="/admin/updateUser" component={AtualizarUsuario} />
     <Redirect from="/admin" to="/admin/entrada" />
   </Switch>
 );

@@ -22,6 +22,7 @@ import Send from "@material-ui/icons/Send";
 import Mail from "@material-ui/icons/Mail";
 import List from "@material-ui/icons/List";
 import Business from "@material-ui/icons/Business";
+import Group from "@material-ui/icons/Group";
 import LibraryBooks from "@material-ui/icons/LibraryBooks";
 import BubbleChart from "@material-ui/icons/BubbleChart";
 import LocationOn from "@material-ui/icons/LocationOn";
@@ -40,9 +41,10 @@ import Maps from "views/Maps/Maps.js";
 import NotificationsPage from "views/Notifications/Notifications.js";
 import UpgradeToPro from "views/UpgradeToPro/UpgradeToPro.js";
 import ListarTipoDocumento from "./views/TipoDocumento/ListarTipoDocumento.js";
-import ListarReferencia from "./views/Referencia/ListarReferencia.js"
+import ListarReferencia from "./views/Referencia/ListarReferencia.js";
 // core components/views for RTL layout
 import RTLPage from "views/RTLPage/RTLPage.js";
+import ListaUsuario from "views/Usuarios/ListaUsuario.js";
 
 const dashboardRoutes = [
   /*{
@@ -94,6 +96,13 @@ const dashboardRoutes = [
     component: ListarReferencia,
     layout: "/admin"
   },
+  {
+    path: "/listaUsuario",
+    name: "Usuários",
+    icon: Group,
+    component: ListaUsuario,
+    layout: "/admin"
+  }
   /* {
     path: "/typography",
     name: "Typography",
