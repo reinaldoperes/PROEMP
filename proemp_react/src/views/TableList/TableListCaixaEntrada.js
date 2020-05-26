@@ -49,6 +49,11 @@ export default function TableListCaixaEntrada() {
   const listaEntrada = []
   var lista = []
   const [listaCaixaEntrada, setCaixaEntrada] = useState([]);
+  const [novoDocumento, setNovoDocumento] = React.useState(false);
+
+  const handleNovoDocumento = () =>{
+    setNovoDocumento(true);
+  };
 
   firebase.database().ref('caixaentrada').orderByChild('referencia').equalTo('teste').once('value', (snapshot) => {
     snapshot.forEach((childItem) => {
@@ -71,12 +76,16 @@ export default function TableListCaixaEntrada() {
   setCaixaEntrada(lista);
   }
 
+  if(novoDocumento){
+    return <Redirect to="/admin/novodocumento" />;
+  }
+
   return (
     <GridContainer>
       <GridItem xs={12} sm={12} md={12}>
         <Card plain>
           <CardHeader plain color="warning">
-            <Button color="white">
+            <Button color="white" onClick={handleNovoDocumento}>
               Novo
             </Button>
           </CardHeader>
