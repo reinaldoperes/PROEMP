@@ -95,13 +95,12 @@ export default function AtualizarReferencia(props) {
                 <GridContainer>
                   <GridItem xs={12} sm={12} md={8}>
                     <textarea
-                      style={{ height: "100px" }}
                       id="descricao"
                       name="descricao"
                       placeholder="Descrição"
                       required
                       maxLength="100"
-                      style={{ width: "100%", height: "150%" }}
+                      style={{ width: "100%", height: "100px" }}
                       value={props.location.state.descricao}
                     />
                   </GridItem>

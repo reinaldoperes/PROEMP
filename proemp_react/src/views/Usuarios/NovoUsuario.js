@@ -77,7 +77,7 @@ const NovoUsuario = () => {
         <GridItem xs={12} sm={12} md={8}>
           <Card>
             <CardHeader color="warning">
-              <h4 className={classes.cardTitleWhite}>Incluir Referencia</h4>
+              <h4 className={classes.cardTitleWhite}>Incluir Novo Usuário</h4>
               <p className={classes.cardCategoryWhite}> </p>
             </CardHeader>
             <CardBody>

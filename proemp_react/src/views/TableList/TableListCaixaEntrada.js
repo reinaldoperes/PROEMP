@@ -44,15 +44,15 @@ const styles = {
 
 const useStyles = makeStyles(styles);
 
-export default function TableListEnviados() {
+export default function TableListCaixaEntrada() {
   const classes = useStyles();
-  const listaEnviados = []
+  const listaEntrada = []
   var lista = []
-  const [listaEnv, setEnviados] = useState([]);
+  const [listaCaixaEntrada, setCaixaEntrada] = useState([]);
 
-  firebase.database().ref('enviados').orderByChild('referencia').equalTo('teste').once('value', (snapshot) => {
+  firebase.database().ref('caixaentrada').orderByChild('referencia').equalTo('teste').once('value', (snapshot) => {
     snapshot.forEach((childItem) => {
-      listaEnviados.push({
+      listaEntrada.push({
         key: childItem.key,
         titulo: childItem.val().titulo,
         descricao: childItem.val().descricao,
@@ -64,11 +64,11 @@ export default function TableListEnviados() {
   });
 
   const  handleLista = () => {
-    listaEnviados.map(item =>{
+    listaEntrada.map(item =>{
     lista = [...lista ,[item.remetente, item.titulo, item.data]]
   });
 
-  setEnviados(lista);
+  setCaixaEntrada(lista);
   }
 
   return (
@@ -84,7 +84,7 @@ export default function TableListEnviados() {
             <Table
               tableHeaderColor="warning"
               tableHead={["", "", "", ]}
-              tableData={listaEnv}
+              tableData={listaCaixaEntrada}
             />
           </CardBody>
         </Card>

@@ -25,7 +25,7 @@ const ListaUsuario = () => {
       snapshot.forEach(user => {
         userList.push([
           ...Object.values(user.val()),
-          renderButtonEditar(user.val()),
+          renderButtonEditar({ ...user.val(), key: user.key }),
           renderButtonExcluir(user.key)
         ]);
       });
@@ -52,11 +52,8 @@ const ListaUsuario = () => {
     </IconButton>
   );
 
-  const renderButtonEditar = (key, nome, descricao) => (
-    <IconButton
-      color="warning"
-      onClick={() => handleEditar(key, nome, descricao)}
-    >
+  const renderButtonEditar = user => (
+    <IconButton color="warning" onClick={() => handleEditar(user)}>
       <EditIcon />
     </IconButton>
   );
