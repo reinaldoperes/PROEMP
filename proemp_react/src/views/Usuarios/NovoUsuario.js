@@ -95,7 +95,6 @@ const NovoUsuario = () => {
                   </GridItem>
                   <GridItem xs={6} sm={6} md={4}>
                     <TextField
-                      autoFocus
                       required
                       id="email"
                       name="email"
@@ -109,7 +108,6 @@ const NovoUsuario = () => {
                 <GridContainer>
                   <GridItem xs={4} sm={4} md={3}>
                     <TextField
-                      autoFocus
                       required
                       id="cpf"
                       name="cpf"
@@ -119,7 +117,6 @@ const NovoUsuario = () => {
                   </GridItem>
                   <GridItem xs={4} sm={4} md={3}>
                     <TextField
-                      autoFocus
                       required
                       id="telefone"
                       name="telefone"
@@ -129,7 +126,6 @@ const NovoUsuario = () => {
                   </GridItem>
                   <GridItem xs={4} sm={4} md={2}>
                     <TextField
-                      autoFocus
                       required
                       id="referencia"
                       name="referencia"
