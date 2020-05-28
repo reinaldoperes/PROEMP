@@ -45,38 +45,50 @@ const styles = {
 const useStyles = makeStyles(styles);
 
 export default function TableListCaixaEntrada() {
-  const classes = useStyles();
-  const listaEntrada = []
-  var lista = []
+  const listaEntrada = [];
+  var lista = [];
   const [listaCaixaEntrada, setCaixaEntrada] = useState([]);
   const [novoDocumento, setNovoDocumento] = React.useState(false);
-
-  const handleNovoDocumento = () =>{
+  var user_email = "";
+  const handleNovoDocumento = () => {
     setNovoDocumento(true);
   };
 
-  firebase.database().ref('caixaentrada').orderByChild('referencia').equalTo('teste').once('value', (snapshot) => {
-    snapshot.forEach((childItem) => {
-      listaEntrada.push({
-        key: childItem.key,
-        titulo: childItem.val().titulo,
-        descricao: childItem.val().descricao,
-        data: childItem.val().data,
-        remetente: childItem.val().usuario_origem,
-      })
-    });       
-      return handleLista();
-  });
+  let user = firebase.auth().currentUser;
 
-  const  handleLista = () => {
-    listaEntrada.map(item =>{
-    lista = [...lista ,[item.remetente, item.titulo, item.data]]
-  });
-
-  setCaixaEntrada(lista);
+  if (user != null) {
+    user.providerData.forEach(function(profile) {
+      user_email = profile.email.toString();
+    });
   }
 
-  if(novoDocumento){
+  firebase
+    .database()
+    .ref("caixaentrada")
+    .orderByChild("usuario_destino")
+    .equalTo(user_email)
+    .once("value", snapshot => {
+      snapshot.forEach(childItem => {
+        listaEntrada.push({
+          key: childItem.key,
+          titulo: childItem.val().titulo,
+          descricao: childItem.val().descricao,
+          data: childItem.val().data,
+          remetente: childItem.val().usuario_origem
+        });
+      });
+      return handleLista();
+    });
+
+  const handleLista = () => {
+    listaEntrada.map(item => {
+      lista = [...lista, [item.remetente, item.titulo, item.data]];
+    });
+
+    setCaixaEntrada(lista);
+  };
+
+  if (novoDocumento) {
     return <Redirect to="/admin/novodocumento" />;
   }
 
@@ -92,7 +104,7 @@ export default function TableListCaixaEntrada() {
           <CardBody>
             <Table
               tableHeaderColor="warning"
-              tableHead={["", "", "", ]}
+              tableHead={["Remetente", "Descrição", "Data"]}
               tableData={listaCaixaEntrada}
             />
           </CardBody>

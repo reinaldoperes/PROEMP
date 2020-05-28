@@ -101,6 +101,15 @@ export default function NovoDocumento() {
   const handleSubmit = event => {
     event.preventDefault();
 
+    //Pegando email do usuario logado
+    let user = firebase.auth().currentUser;
+    let user_email = "";
+    if (user != null) {
+      user.providerData.forEach(function(profile) {
+        user_email = profile.email.toString();
+      });
+    }
+
     let now = new Date();
 
     let data = now.getDate();
@@ -109,7 +118,7 @@ export default function NovoDocumento() {
     let usu_destino = document.getElementsByName("email")[0].value;
     let referencia = document.getElementsByName("referencia")[0].value;
     let tipo_documento = document.getElementsByName("tipodocumento")[0].value;
-    let usu_origem = "-M8HyeyfQj0OFLB8UOOk";
+    let usu_origem = user_email;
 
     let enviados = firebase.database().ref("enviados");
     let chave = enviados.push().key;
@@ -122,6 +131,19 @@ export default function NovoDocumento() {
       usuario_destino: usu_destino,
       usuario_origem: usu_origem
     });
+
+    let caixaentrada = firebase.database().ref("caixaentrada");
+    chave = caixaentrada.push().key;
+    caixaentrada.child(chave).set({
+      data: data,
+      descricao: descricao,
+      referencia: referencia,
+      tipo_documento: tipo_documento,
+      titulo: titulo,
+      usuario_destino: usu_destino,
+      usuario_origem: usu_origem
+    });
+
     setVoltar(true);
   };
 
@@ -183,6 +205,7 @@ export default function NovoDocumento() {
                       renderInput={params => (
                         <TextField
                           {...params}
+                          autoFocus
                           name="email"
                           label="Para:"
                           variant="outlined"
@@ -195,7 +218,6 @@ export default function NovoDocumento() {
                 <GridContainer>
                   <GridItem xs={12} sm={12} md={10}>
                     <TextField
-                      autoFocus
                       required
                       id="titulo"
                       name="titulo"

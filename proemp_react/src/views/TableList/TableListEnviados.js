@@ -46,44 +46,56 @@ const useStyles = makeStyles(styles);
 
 export default function TableListEnviados() {
   const classes = useStyles();
-  const listaEnviados = []
-  var lista = []
+  const listaEnviados = [];
+  var lista = [];
+  var user_email = "";
   const [listaEnv, setEnviados] = useState([]);
 
-  firebase.database().ref('enviados').orderByChild('referencia').equalTo('teste').once('value', (snapshot) => {
-    snapshot.forEach((childItem) => {
-      listaEnviados.push({
-        key: childItem.key,
-        titulo: childItem.val().titulo,
-        descricao: childItem.val().descricao,
-        data: childItem.val().data,
-        remetente: childItem.val().usuario_origem,
-      })
-    });       
-      return handleLista();
-  });
+  let user = firebase.auth().currentUser;
 
-  const  handleLista = () => {
-    listaEnviados.map(item =>{
-    lista = [...lista ,[item.remetente, item.titulo, item.data]]
-  });
-
-  setEnviados(lista);
+  if (user != null) {
+    user.providerData.forEach(function(profile) {
+      user_email = profile.email.toString();
+    });
   }
+
+  firebase
+    .database()
+    .ref("caixaentrada")
+    .orderByChild("usuario_origem")
+    .equalTo(user_email)
+    .once("value", snapshot => {
+      snapshot.forEach(childItem => {
+        listaEnviados.push({
+          key: childItem.key,
+          titulo: childItem.val().titulo,
+          descricao: childItem.val().descricao,
+          data: childItem.val().data,
+          remetente: childItem.val().usuario_origem
+        });
+      });
+      return handleLista();
+    });
+
+  const handleLista = () => {
+    listaEnviados.map(item => {
+      lista = [...lista, [item.remetente, item.titulo, item.data]];
+    });
+
+    setEnviados(lista);
+  };
 
   return (
     <GridContainer>
       <GridItem xs={12} sm={12} md={12}>
         <Card plain>
           <CardHeader plain color="warning">
-            <Button color="white">
-              Novo
-            </Button>
+            <Button color="white"> Novo </Button>
           </CardHeader>
           <CardBody>
             <Table
               tableHeaderColor="warning"
-              tableHead={["", "", "", ]}
+              tableHead={["Remetente", "Descrição", "Data"]}
               tableData={listaEnv}
             />
           </CardBody>
