@@ -16,40 +16,7 @@ import CardBody from "components/Card/CardBody.js";
 import { Redirect } from "react-router-dom";
 import firebase from "firebase";
 
-const styles = {
-  cardCategoryWhite: {
-    "&,& a,& a:hover,& a:focus": {
-      color: "rgba(255,255,255,.62)",
-      margin: "0",
-      fontSize: "14px",
-      marginTop: "0",
-      marginBottom: "0"
-    },
-    "& a,& a:hover,& a:focus": {
-      color: "#FFFFFF"
-    }
-  },
-  cardTitleWhite: {
-    color: "#FFFFFF",
-    marginTop: "0px",
-    minHeight: "auto",
-    fontWeight: "300",
-    fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
-    marginBottom: "3px",
-    textDecoration: "none",
-    "& small": {
-      color: "#777",
-      fontSize: "65%",
-      fontWeight: "400",
-      lineHeight: "1"
-    }
-  }
-};
-
-const useStyles = makeStyles(styles);
-
 export default function ListarReferencia() {
-  const classes = useStyles();
   const listaRef = [];
   var lista = [];
   const [listaReferencias, setListaReferencias] = useState([]);
@@ -77,6 +44,19 @@ export default function ListarReferencia() {
     setDescRef(descricao);
     setEditarRef(true);
   };
+
+  function renderDivBotoes(key, nome, descricao) {
+    return (
+      <div style={{ display: "table", float: "right" }}>
+        <div style={{ display: "table-cell", paddingRight: "5px" }}>
+          {renderButtonEditar(key, nome, descricao)}
+        </div>
+        <div style={{ display: "table-cell", paddingRight: "5px" }}>
+          {renderButtonExcluir(key)}
+        </div>
+      </div>
+    );
+  }
 
   function renderButtonExcluir(key) {
     return (
@@ -133,8 +113,7 @@ export default function ListarReferencia() {
         [
           item.nome,
           item.descricao,
-          renderButtonEditar(item.key, item.nome, item.descricao),
-          renderButtonExcluir(item.key)
+          renderDivBotoes(item.key, item.nome, item.descricao)
         ]
       ];
     });

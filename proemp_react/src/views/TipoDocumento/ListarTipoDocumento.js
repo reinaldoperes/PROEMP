@@ -16,62 +16,46 @@ import CardBody from "components/Card/CardBody.js";
 import { Redirect } from "react-router-dom";
 import firebase from 'firebase';
 
-const styles = {
-  cardCategoryWhite: {
-    "&,& a,& a:hover,& a:focus": {
-      color: "rgba(255,255,255,.62)",
-      margin: "0",
-      fontSize: "14px",
-      marginTop: "0",
-      marginBottom: "0"
-    },
-    "& a,& a:hover,& a:focus": {
-      color: "#FFFFFF"
-    }
-  },
-  cardTitleWhite: {
-    color: "#FFFFFF",
-    marginTop: "0px",
-    minHeight: "auto",
-    fontWeight: "300",
-    fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
-    marginBottom: "3px",
-    textDecoration: "none",
-    "& small": {
-      color: "#777",
-      fontSize: "65%",
-      fontWeight: "400",
-      lineHeight: "1"
-    }
-  }
-};
-
-const useStyles = makeStyles(styles);
-
 export default function ListarTipoDocumento() {
-  const classes = useStyles();
-  const listaTipoDoc = []
-  var lista = []
+  const listaTipoDoc = [];
+  var lista = [];
   const [listaTipo, setListaTipoDoc] = useState([]);
   const [novoTipoDoc, setNovoTipoDoc] = useState(false);
   const [editarTipoDoc, setEditarTipoDoc] = useState(false);
-  const [keyTipoDoc, setKeyTipoDoc] = useState('');
-  const [nomeTipoDoc, setNomeTipoDoc] = useState('');
-  const [descTipoDoc, setDescTipoDoc] = useState('');
+  const [keyTipoDoc, setKeyTipoDoc] = useState("");
+  const [nomeTipoDoc, setNomeTipoDoc] = useState("");
+  const [descTipoDoc, setDescTipoDoc] = useState("");
 
   const handleNovo = () => {
     setNovoTipoDoc(true);
-  }  
+  };
 
   const handleExcluir = key => {
-    firebase.database().ref('tipo_documento').child(key).remove();
-  }
+    firebase
+      .database()
+      .ref("tipo_documento")
+      .child(key)
+      .remove();
+  };
 
   const handleEditar = (key, nome, descricao) => {
     setKeyTipoDoc(key);
-    setNomeTipoDoc(nome);  
+    setNomeTipoDoc(nome);
     setDescTipoDoc(descricao);
     setEditarTipoDoc(true);
+  };
+
+  function renderDivBotoes(key, nome, descricao) {
+    return (
+      <div style={{ display: "table", float: "right" }}>
+        <div style={{ display: "table-cell", paddingRight: "5px" }}>
+          {renderButtonEditar(key, nome, descricao)}
+        </div>
+        <div style={{ display: "table-cell", paddingRight: "5px" }}>
+          {renderButtonExcluir(key)}
+        </div>
+      </div>
+    );
   }
 
   function renderButtonExcluir(key) {
@@ -93,38 +77,46 @@ export default function ListarTipoDocumento() {
     }}/>;
   }
 
-  firebase.database().ref('tipo_documento').once('value', (snapshot) => {
-    snapshot.forEach((childItem) => {
-      listaTipoDoc.push({
-        key: childItem.key,
-        nome: childItem.val().nome,
-        descricao: childItem.val().descricao
-      })
-    });       
+  firebase
+    .database()
+    .ref("tipo_documento")
+    .once("value", snapshot => {
+      snapshot.forEach(childItem => {
+        listaTipoDoc.push({
+          key: childItem.key,
+          nome: childItem.val().nome,
+          descricao: childItem.val().descricao
+        });
+      });
       return handleLista();
-  });
+    });
 
-  const  handleLista = () => {
-  listaTipoDoc.map(item =>{
-    lista = [...lista ,[item.nome, item.descricao, renderButtonEditar(item.key,item.nome, item.descricao), renderButtonExcluir(item.key)]]
-  });
+  const handleLista = () => {
+    listaTipoDoc.map(item => {
+      lista = [
+        ...lista,
+        [
+          item.nome,
+          item.descricao,
+          renderDivBotoes(item.key, item.nome, item.descricao)
+        ]
+      ];
+    });
 
-  setListaTipoDoc(lista);
-  }
-     
+    setListaTipoDoc(lista);
+  };
+
   return (
     <GridContainer>
       <GridItem xs={12} sm={12} md={12}>
         <Card plain>
           <CardHeader plain color="warning">
-            <Button 
-            color="white"
-            onClick={handleNovo}>
+            <Button color="white" onClick={handleNovo}>
               Novo
             </Button>
           </CardHeader>
           <CardBody>
-          <Table
+            <Table
               tableHeaderColor="warning"
               tableHead={["Nome", "Descrição", "", ""]}
               tableData={listaTipo}

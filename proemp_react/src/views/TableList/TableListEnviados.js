@@ -50,6 +50,11 @@ export default function TableListEnviados() {
   var lista = [];
   var user_email = "";
   const [listaEnv, setEnviados] = useState([]);
+  const [novoDocumento, setNovoDocumento] = React.useState(false);
+
+  const handleNovoDocumento = () => {
+    setNovoDocumento(true);
+  };
 
   let user = firebase.auth().currentUser;
 
@@ -61,7 +66,7 @@ export default function TableListEnviados() {
 
   firebase
     .database()
-    .ref("caixaentrada")
+    .ref("enviados")
     .orderByChild("usuario_origem")
     .equalTo(user_email)
     .once("value", snapshot => {
@@ -71,7 +76,7 @@ export default function TableListEnviados() {
           titulo: childItem.val().titulo,
           descricao: childItem.val().descricao,
           data: childItem.val().data,
-          remetente: childItem.val().usuario_origem
+          destinatario: childItem.val().usuario_destino
         });
       });
       return handleLista();
@@ -79,23 +84,29 @@ export default function TableListEnviados() {
 
   const handleLista = () => {
     listaEnviados.map(item => {
-      lista = [...lista, [item.remetente, item.titulo, item.data]];
+      lista = [...lista, [item.destinatario, item.titulo, item.data]];
     });
 
     setEnviados(lista);
   };
+
+  if (novoDocumento) {
+    return <Redirect to="/admin/novodocumento" />;
+  }
 
   return (
     <GridContainer>
       <GridItem xs={12} sm={12} md={12}>
         <Card plain>
           <CardHeader plain color="warning">
-            <Button color="white"> Novo </Button>
+            <Button color="white" onClick={handleNovoDocumento}>
+              Novo Envio
+            </Button>
           </CardHeader>
           <CardBody>
             <Table
               tableHeaderColor="warning"
-              tableHead={["Remetente", "Descrição", "Data"]}
+              tableHead={["Para", "Descrição", "Data"]}
               tableData={listaEnv}
             />
           </CardBody>

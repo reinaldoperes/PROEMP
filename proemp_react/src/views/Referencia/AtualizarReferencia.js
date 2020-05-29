@@ -84,10 +84,10 @@ export default function AtualizarReferencia(props) {
                       autoFocus
                       required
                       id="nome"
-                      value={props.location.state.nome}
                       name="nome"
                       fullWidth
                       label="Nome"
+                      defaultValue={props.location.state.nome}
                     />
                   </GridItem>
                 </GridContainer>
@@ -101,7 +101,7 @@ export default function AtualizarReferencia(props) {
                       required
                       maxLength="100"
                       style={{ width: "100%", height: "100px" }}
-                      value={props.location.state.descricao}
+                      defaultValue={props.location.state.descricao}
                     />
                   </GridItem>
                 </GridContainer>

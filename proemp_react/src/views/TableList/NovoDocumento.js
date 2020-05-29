@@ -112,7 +112,15 @@ export default function NovoDocumento() {
 
     let now = new Date();
 
-    let data = now.getDate();
+    let data =
+      now.getDate() +
+      "/" +
+      now
+        .getMonth()
+        .toString()
+        .padStart(2, "0") +
+      "/" +
+      now.getFullYear();
     let titulo = document.getElementsByName("titulo")[0].value;
     let descricao = document.getElementsByName("descricao")[0].value;
     let usu_destino = document.getElementsByName("email")[0].value;
@@ -153,7 +161,9 @@ export default function NovoDocumento() {
         <GridItem xs={12} sm={12} md={12}>
           <Card>
             <CardHeader color="warning">
-              <h4 className={classes.cardTitleWhite}>Novo Documento</h4>
+              <h4 className={classes.cardTitleWhite}>
+                Novo Envio de Documento
+              </h4>
               <p className={classes.cardCategoryWhite}> </p>
             </CardHeader>
             <CardBody>

@@ -68,16 +68,25 @@ export default function AtualizarTipoDocumento(props) {
         <GridItem xs={12} sm={12} md={8}>
           <Card>
             <CardHeader color="warning">
-              <h4 className={classes.cardTitleWhite}>{'Editar: ' + props.location.state.nome}</h4>
+              <h4 className={classes.cardTitleWhite}>
+                {"Editar: " + props.location.state.nome}
+              </h4>
               <p className={classes.cardCategoryWhite}> </p>
             </CardHeader>
             <CardBody>
-            <form onSubmit={handleSubmit}>
-            <GridContainer>
-                <GridItem xs={12} sm={12} md={8}>
-                <TextField autoFocus required id="nome" name="nome" fullWidth label="Nome"/>              
-                </GridItem>
-              </GridContainer>
+              <form onSubmit={handleSubmit}>
+                <GridContainer>
+                  <GridItem xs={12} sm={12} md={8}>
+                    <TextField
+                      autoFocus
+                      required
+                      id="nome"
+                      name="nome"
+                      fullWidth
+                      label="Nome"
+                    />
+                  </GridItem>
+                </GridContainer>
               <br />
               <GridContainer>
                 <GridItem xs={12} sm={12} md={8}>

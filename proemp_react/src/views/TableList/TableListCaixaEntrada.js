@@ -98,7 +98,7 @@ export default function TableListCaixaEntrada() {
         <Card plain>
           <CardHeader plain color="warning">
             <Button color="white" onClick={handleNovoDocumento}>
-              Novo
+              Novo Envio
             </Button>
           </CardHeader>
           <CardBody>
