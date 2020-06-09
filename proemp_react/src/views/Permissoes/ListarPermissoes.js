@@ -16,40 +16,38 @@ import CardBody from "components/Card/CardBody.js";
 import { Redirect } from "react-router-dom";
 import firebase from 'firebase';
 
-export default function ListarTipoDocumento() {
-  const listaTipoDoc = [];
+export default function ListarPermissoes() {
+  const listapermissao = [];
   var lista = [];
-  const [listaTipo, setListaTipoDoc] = useState([]);
-  const [novoTipoDoc, setNovoTipoDoc] = useState(false);
-  const [editarTipoDoc, setEditarTipoDoc] = useState(false);
-  const [keyTipoDoc, setKeyTipoDoc] = useState("");
-  const [nomeTipoDoc, setNomeTipoDoc] = useState("");
-  const [descTipoDoc, setDescTipoDoc] = useState("");
+  const [listaTipo, setListapermissao] = useState([]);
+  const [novopermissao, setNovopermissao] = useState(false);
+  const [editarpermissao, setEditarpermissao] = useState(false);
+  const [keypermissao, setKeypermissao] = useState("");
+  const [usuarioPermissao, setUsuariopermissao] = useState("");
 
   const handleNovo = () => {
-    setNovoTipoDoc(true);
+    setNovopermissao(true);
   };
 
   const handleExcluir = key => {
     firebase
       .database()
-      .ref("tipo_documento")
+      .ref("permissao")
       .child(key)
       .remove();
   };
 
-  const handleEditar = (key, nome, descricao) => {
-    setKeyTipoDoc(key);
-    setNomeTipoDoc(nome);
-    setDescTipoDoc(descricao);
-    setEditarTipoDoc(true);
+  const handleEditar = (key, usuario) => {
+    setKeypermissao(key);
+    setUsuariopermissao(usuario);
+    setEditarpermissao(true);
   };
 
-  function renderDivBotoes(key, nome, descricao) {
+  function renderDivBotoes(key, usuario) {
     return (
       <div style={{ display: "table", float: "right" }}>
         <div style={{ display: "table-cell", paddingRight: "5px" }}>
-          {renderButtonEditar(key, nome, descricao)}
+          {renderButtonEditar(key, usuario)}
         </div>
         <div style={{ display: "table-cell", paddingRight: "5px" }}>
           {renderButtonExcluir(key)}
@@ -62,48 +60,48 @@ export default function ListarTipoDocumento() {
     return <IconButton color="warning" onClick={() => handleExcluir(key)}><DeleteIcon/></IconButton>;
   }
 
-  function renderButtonEditar(key, nome, descricao) {
-    return <IconButton color="warning" onClick={() => handleEditar(key, nome, descricao)}><EditIcon/></IconButton>;
+  function renderButtonEditar(key, usuario) {
+    return <IconButton color="warning" onClick={() => handleEditar(key,usuario)}><EditIcon/></IconButton>;
   }
 
-  if(novoTipoDoc){
-    return <Redirect to="/admin/incluirtipodocumento" />;
+  if(novopermissao){
+    return <Redirect to="/admin/incluirpermissao" />;
   }
 
-  if(editarTipoDoc){
+  if(editarpermissao){
     return <Redirect to={{
-      pathname: '/admin/atualizartipodocumento',
-      state: { key: keyTipoDoc, nome: nomeTipoDoc, descricao: descTipoDoc }
+      pathname: '/admin/atualizarpermissao',
+      state: { key: keypermissao, usuario: usuarioPermissao }
     }}/>;
   }
 
   firebase
     .database()
-    .ref("tipo_documento")
+    .ref("permissao")
     .once("value", snapshot => {
       snapshot.forEach(childItem => {
-        listaTipoDoc.push({
+        listapermissao.push({
           key: childItem.key,
-          nome: childItem.val().nome,
-          descricao: childItem.val().descricao
+          usuario: childItem.val().usuario,
+          tipodocumento: childItem.val().tipodocumento,
+          referencia: childItem.val().referencia,
         });
       });
       return handleLista();
     });
 
   const handleLista = () => {
-    listaTipoDoc.map(item => {
+    listapermissao.map(item => {
       lista = [
         ...lista,
         [
-          item.nome,
-          item.descricao,
-          renderDivBotoes(item.key, item.nome, item.descricao)
+          item.usuario,
+          renderDivBotoes(item.key, item.usuario)
         ]
       ];
     });
 
-    setListaTipoDoc(lista);
+    setListapermissao(lista);
   };
 
   return (
@@ -118,7 +116,7 @@ export default function ListarTipoDocumento() {
           <CardBody>
             <Table
               tableHeaderColor="warning"
-              tableHead={["Nome", "Descrição", ""]}
+              tableHead={["Usuário", ""]}
               tableData={listaTipo}
             />
           </CardBody>

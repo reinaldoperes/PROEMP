@@ -29,6 +29,8 @@ import LocationOn from "@material-ui/icons/LocationOn";
 import Notifications from "@material-ui/icons/Notifications";
 import Unarchive from "@material-ui/icons/Unarchive";
 import Language from "@material-ui/icons/Language";
+import Fingerprint from "@material-ui/icons/Fingerprint";
+
 // core components/views for Admin layout
 import DashboardPage from "views/Dashboard/Dashboard.js";
 import UserProfile from "views/UserProfile/UserProfile.js";
@@ -42,9 +44,8 @@ import NotificationsPage from "views/Notifications/Notifications.js";
 import UpgradeToPro from "views/UpgradeToPro/UpgradeToPro.js";
 import ListarTipoDocumento from "./views/TipoDocumento/ListarTipoDocumento.js";
 import ListarReferencia from "./views/Referencia/ListarReferencia.js";
-// core components/views for RTL layout
-import RTLPage from "views/RTLPage/RTLPage.js";
 import ListaUsuario from "views/Usuarios/ListaUsuario.js";
+import ListarPermissoes from "./views/Permissoes/ListarPermissoes";
 
 const dashboardRoutes = [
   /*{
@@ -75,13 +76,13 @@ const dashboardRoutes = [
     component: TableListEnviados,
     layout: "/admin"
   },
-  {
+  /*{
     path: "/documentos",
     name: "Documentos",
     icon: "content_paste",
     component: TableListDocumentos,
     layout: "/admin"
-  },
+  },*/
   {
     path: "/tipodocumento",
     name: "Tipo Documento",
@@ -102,35 +103,14 @@ const dashboardRoutes = [
     icon: Group,
     component: ListaUsuario,
     layout: "/admin"
-  }
-  /* {
-    path: "/typography",
-    name: "Typography",
-    icon: LibraryBooks,
-    component: Typography,
-    layout: "/admin"
   },
   {
-    path: "/icons",
-    name: "Icons",
-    icon: BubbleChart,
-    component: Icons,
+    path: "/permissoes",
+    name: "Permissões",
+    icon: Fingerprint,
+    component: ListarPermissoes,
     layout: "/admin"
   },
- {
-    path: "/maps",
-    name: "Maps",
-    icon: LocationOn,
-    component: Maps,
-    layout: "/admin"
-  },
-  {
-    path: "/notifications",
-    name: "Notifications",
-    icon: Notifications,
-    component: NotificationsPage,
-    layout: "/admin"
-  },*/
 ];
 
 export default dashboardRoutes;

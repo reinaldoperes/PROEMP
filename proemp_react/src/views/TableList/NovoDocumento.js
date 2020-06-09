@@ -113,7 +113,10 @@ export default function NovoDocumento() {
     let now = new Date();
 
     let data =
-      now.getDate() +
+      now
+      .getDate()
+      .toString()
+      .padStart(2, "0") +
       "/" +
       now
         .getMonth()

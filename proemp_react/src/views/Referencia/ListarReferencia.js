@@ -133,7 +133,7 @@ export default function ListarReferencia() {
           <CardBody>
             <Table
               tableHeaderColor="warning"
-              tableHead={["Nome", "Descrição", "", ""]}
+              tableHead={["Nome", "Descrição", ""]}
               tableData={listaReferencias}
             />
           </CardBody>
