@@ -104,13 +104,13 @@ const dashboardRoutes = [
     component: ListaUsuario,
     layout: "/admin"
   },
-  {
+  /*{
     path: "/permissoes",
     name: "Permissões",
     icon: Fingerprint,
     component: ListarPermissoes,
     layout: "/admin"
-  },
+  },*/
 ];
 
 export default dashboardRoutes;

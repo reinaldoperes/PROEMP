@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
+//icons
+import DraftsIcon from "@material-ui/icons/Drafts";
+import IconButton from "@material-ui/core/IconButton";
 // core components
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
@@ -49,9 +52,17 @@ export default function TableListCaixaEntrada() {
   var lista = [];
   const [listaCaixaEntrada, setCaixaEntrada] = useState([]);
   const [novoDocumento, setNovoDocumento] = React.useState(false);
+  const [abrirDocumento, setAbrirDocumento] = React.useState(false);
+  const [Doc, setDoc] = useState([]);
   var user_email = "";
+  
   const handleNovoDocumento = () => {
     setNovoDocumento(true);
+  };
+
+  const handleAbrirDocumento = item => {
+    setAbrirDocumento(true);
+    setDoc(item);
   };
 
   let user = firebase.auth().currentUser;
@@ -74,7 +85,9 @@ export default function TableListCaixaEntrada() {
           titulo: childItem.val().titulo,
           descricao: childItem.val().descricao,
           data: childItem.val().data,
-          remetente: childItem.val().usuario_origem
+          remetente: childItem.val().usuario_origem,
+          referencia: childItem.val().referencia,
+          tipo_documento: childItem.val().tipo_documento
         });
       });
       return handleLista();
@@ -82,14 +95,43 @@ export default function TableListCaixaEntrada() {
 
   const handleLista = () => {
     listaEntrada.map(item => {
-      lista = [...lista, [item.remetente, item.titulo, item.data]];
+      lista = [...lista, [item.remetente, item.titulo, item.data, renderDivBotoes(item)]];
     });
 
     setCaixaEntrada(lista);
   };
 
+  function renderDivBotoes(item) {
+    return (
+      <div style={{ display: "table", float: "right" }}>
+        <div style={{ display: "table-cell", paddingRight: "5px" }}>
+          {renderButtonAbrirDocumento(item)}
+        </div>
+      </div>
+    );
+  }
+
+  function renderButtonAbrirDocumento(item) {
+    return (
+      <IconButton color="warning" onClick={() => handleAbrirDocumento(item)}>
+        <DraftsIcon />
+      </IconButton>
+    );
+  }
+
   if (novoDocumento) {
     return <Redirect to="/admin/novodocumento" />;
+  }
+
+  if (abrirDocumento) {
+    return (
+      <Redirect
+        to={{
+          pathname: "/admin/abrirdocumento",
+          state: { doc: Doc }
+        }}
+      />
+    );
   }
 
   return (
@@ -104,7 +146,7 @@ export default function TableListCaixaEntrada() {
           <CardBody>
             <Table
               tableHeaderColor="warning"
-              tableHead={["Remetente", "Descrição", "Data"]}
+              tableHead={["Remetente", "Descrição", "Data", ""]}
               tableData={listaCaixaEntrada}
             />
           </CardBody>
