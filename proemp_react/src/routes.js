@@ -55,13 +55,13 @@ const dashboardRoutes = [
     component: DashboardPage,
     layout: "/admin"
   },*/
-  {
+  /*{
     path: "/user",
     name: "Perfil",
     icon: Person,
     component: UserProfile,
     layout: "/admin"
-  },
+  },*/
   {
     path: "/entrada",
     name: "Caixa de entrada",

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 // @material-ui/core components
 // core components
 import GridItem from "components/Grid/GridItem.js";
@@ -36,6 +36,22 @@ const useStyles = makeStyles(styles);
 const NovoUsuario = () => {
   const classes = useStyles();
   const [voltar, setVoltar] = React.useState(false);
+  const listaRef = [];
+  const [listaReferencias, setListaReferencias] = useState([]);
+  const [keyRef, setKeyRef] = useState("");
+  var database = firebase.database();
+
+  useEffect(() => {
+    database.ref("referencia").once("value", snapshot => {
+      snapshot.forEach(childItem => {
+        listaRef.push({
+          key: childItem.key,
+          nome: childItem.val().nome
+        });
+      });
+      setListaReferencias(listaRef);
+    });
+  }, []);
 
   const handleCancelar = () => {
     setVoltar(true);
@@ -65,6 +81,10 @@ const NovoUsuario = () => {
       .catch(() => {
         alert("Email inválido ou já cadastrado");
       });
+  };
+
+  const handleChangeRef = event => {
+    setKeyRef(event.target.value);
   };
 
   if (voltar) {
@@ -123,15 +143,25 @@ const NovoUsuario = () => {
                       fullWidth
                       label="Telefone"
                     />
-                  </GridItem>
-                  <GridItem xs={4} sm={4} md={2}>
-                    <TextField
-                      required
-                      id="referencia"
+                  </GridItem>                  
+                </GridContainer>
+                <GridContainer>
+                <GridItem xs={4} sm={4} md={4}>
+                    <p>Referência:</p>
+                    <select
+                      style={{ width: "100%", height: "50px" }}
                       name="referencia"
-                      fullWidth
-                      label="Referência"
-                    />
+                      value={keyRef}
+                      onChange={e => handleChangeRef(e)}
+                    >
+                      {listaReferencias.map(ref => {
+                        return (
+                          <option key={ref.key} value={ref.key}>
+                            {ref.nome}
+                          </option>
+                        );
+                      })}
+                    </select>
                   </GridItem>
                 </GridContainer>
                 <br />
